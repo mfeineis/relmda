@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Elmish ES6 Playground</title>
+</head>
+<body>
+    <script type="module">
+
+        import { Main } from "./app/main.js";
+
+        //app.fullscreen();
+        const app = Main.embed(document.querySelector("body"), {
+            blubb: "bla",
+            plisch: true,
+        });
+
+    </script>
+</body>
+</html>
