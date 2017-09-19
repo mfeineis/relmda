@@ -9,7 +9,9 @@ const footer = tag("footer");
 const header = tag("header");
 const hr = tag("hr");
 const input = tag("input");
+const label = tag("label");
 const main = tag("main");
+const pre = tag("pre");
 const style = tag("style");
 
 const Msg = {
@@ -18,19 +20,23 @@ const Msg = {
     toggleHeader: "TOGGLE_HEADER",
 };
 
-const mainView = ({ third, search }) =>
+const mainView = ({ blubb, third, search }) =>
       main(null, [
-          input({ onInput: [Msg.search, Decoder.targetValue], value: search }),
+          label(null, [
+              "blubb:",
+              input({ onInput: [Msg.search, Decoder.targetValue], value: search }),
+          ]),
+          pre(null, [blubb]),
           third,
       ]);
 
-const topView = ({ first, second, third, search }) => [
+const topView = ({ blubb, first, second, third, search }) => [
     header({ class: "--sticky", onClick: [Msg.toggleHeader, second] }, [
         first,
         button({ onClick: [Msg.someButton] }, "Boom!"),
     ]),
     //second,
-    mainView({ third, search }),
+    mainView({ blubb, third, search }),
 ];
 
 const bottomView = ({ fourth }) =>
@@ -51,6 +57,7 @@ const init = flags => [{
     third: 3,
     fourth: 4,
     search: "",
+    blubb: flags.blubb,
 }, Cmd.none];
 const subscriptions = model => Sub.none;
 const update = (msg, model) => [model, Cmd.none];
