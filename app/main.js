@@ -1,4 +1,4 @@
-import { Cmd, Decoder, Modifier, Sub, programWithFlags, tag } from "../lib/elmish.js";
+import { Cmd, Decoder, Modifier, Sub, programWithFlags, tag } from "../lib/relmda.js";
 
 import prop from "../lib/ramda/src/prop.js";
 import { tmpl } from "./tmpl.js";
