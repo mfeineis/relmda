@@ -32,6 +32,11 @@ const bottomView = ({ fourth }) =>
       ]);
 
 const view = model => [
+    style({ type: "text/css" }, `
+
+        body { margin: 0; padding: 0; }
+
+    `),
     topView(model),
     bottomView(model),
 ];
