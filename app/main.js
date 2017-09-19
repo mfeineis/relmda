@@ -12,6 +12,7 @@ const input = tag("input");
 const label = tag("label");
 const main = tag("main");
 const pre = tag("pre");
+const span = tag("span");
 const style = tag("style");
 
 const Msg = {
@@ -30,13 +31,13 @@ const mainView = ({ blubb, third, search }) =>
           third,
       ]);
 
-const topView = ({ blubb, first, second, third, search }) => [
+const topView = ({ blubb, first, second, third, search, toggle }) => [
     header({ class: "--sticky", onClick: [Msg.toggleHeader, second, Modifier.stopImmediatePropagation] }, [
         first,
         button({
             onClick: [Msg.someButton, null, Modifier.stopPropagation, Modifier.preventDefault],
             onMouseDown: () => console.log("ignored!"),
-        }, "Boom!"),
+        }, `Boom! (${toggle ? "on" : "off" })`),
     ]),
     //second,
     mainView({ blubb, third, search }),
@@ -61,9 +62,21 @@ const init = flags => [{
     fourth: 4,
     search: "",
     blubb: flags.blubb,
+    toggle: false,
 }, Cmd.none];
 const subscriptions = model => Sub.none;
-const update = (msg, model) => [model, Cmd.none];
+const update = ({ payload, type }, model) => {
+    switch (type) {
+    case Msg.search:
+        return [{ ...model, search: payload }, Cmd.none];
+
+    case Msg.someButton:
+        return [{ ...model, toggle: !model.toggle }, Cmd.none];
+
+    default:
+        return [model, Cmd.none];
+    }
+};
 
 const Main = programWithFlags({
     init,
