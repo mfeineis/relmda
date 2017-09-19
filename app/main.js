@@ -1,19 +1,20 @@
-import { Cmd, Decoder, Modifier, Sub, programWithFlags, tag } from "../lib/relmda.js";
+import { Cmd, Decoder, Modifier, Sub } from "../lib/relmda/relmda.js";
+import {
+    button,
+    div,
+    footer,
+    header,
+    hr,
+    input,
+    label,
+    main,
+    pre,
+    programWithFlags,
+    span,
+    style,
+} from "../lib/relmda/html.js";
 
 import prop from "../lib/ramda/src/prop.js";
-import { tmpl } from "./tmpl.js";
-
-const button = tag("button");
-const div = tag("div");
-const footer = tag("footer");
-const header = tag("header");
-const hr = tag("hr");
-const input = tag("input");
-const label = tag("label");
-const main = tag("main");
-const pre = tag("pre");
-const span = tag("span");
-const style = tag("style");
 
 const Msg = {
     search: "SEARCH",
@@ -88,12 +89,3 @@ const Main = programWithFlags({
 export {
     Main,
 };
-
-const headerPlain =
-      tmpl`<header>${prop("first")}</header>`;
-
-const mainPlain =
-      tmpl`<main>${prop("third")}</main>`;
-
-const viewPlain =
-      tmpl`<div>Blubb ${headerPlain}, bla ${prop("second")}, plisch ${mainPlain}</div>`;

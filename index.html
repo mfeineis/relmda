@@ -7,12 +7,20 @@
 <body>
     <script type="module">
 
-        import { Main } from "./app/main.js";
+    import { Main } from "./app/main.js";
+    import { render, renderToStaticDom, renderToString, schedule } from "./lib/relmda/dom.js";
 
-        const app = Main.fullscreen({
-            blubb: "bla",
-            plisch: true,
-        });
+    const root = document.querySelector("body");
+    const stub = {
+        appendChild(html) {
+            console.log(html);
+        }
+    };
+
+    const app = Main({ render, schedule }).embed(root, {
+        blubb: "bla",
+        plisch: true,
+    });
 
     </script>
 </body>
