@@ -3,21 +3,38 @@ import { Cmd, Sub, programWithFlags, tag } from "../lib/elmish.js";
 import prop from "../lib/ramda/src/prop.js";
 import { tmpl } from "./tmpl.js";
 
-const header =
-    tmpl`<header>${prop("first")}</header>`;
-
-const main =
-    tmpl`<main>${prop("third")}</main>`;
-
+const button = tag("button");
 const div = tag("div");
 const footer = tag("footer");
+const header = tag("header");
 const hr = tag("hr");
+const main = tag("main");
+const style = tag("style");
 
-const subView = ({ fourth }) =>
-    footer({ class: "--sticky" }, [
-        hr({ "x-ray": "something", "data-blubb": "bla" }),
-        fourth,
-    ]);
+const mainView = ({ third }) =>
+      main(null, [
+          third,
+      ]);
+
+const topView = ({ first, second, third }) => [
+    header({ class: "--sticky", onClick: () => console.log("header sideeffect!") }, [
+        first,
+        button({ onClick: () => console.log("button sideeffect!") }, "Boom!"),
+    ]),
+    //second,
+    mainView({ third }),
+];
+
+const bottomView = ({ fourth }) =>
+      footer(null, [
+          hr({ "x-ray": "something", "data-blubb": "bla" }),
+          fourth,
+      ]);
+
+const view = model => [
+    topView(model),
+    bottomView(model),
+];
 
 const init = flags => [{
     first: 1,
@@ -27,13 +44,6 @@ const init = flags => [{
 }, Cmd.none];
 const subscriptions = model => Sub.none;
 const update = (msg, model) => [model, Cmd.none];
-const viewPlain =
-    tmpl`<div>Blubb ${header}, bla ${prop("second")}, plisch ${main}</div>`;
-
-const view = model =>
-    div({ class: "vnode-root" }, [
-        subView(model),
-    ]);
 
 const Main = programWithFlags({
     init,
@@ -45,3 +55,12 @@ const Main = programWithFlags({
 export {
     Main,
 };
+
+const headerPlain =
+      tmpl`<header>${prop("first")}</header>`;
+
+const mainPlain =
+      tmpl`<main>${prop("third")}</main>`;
+
+const viewPlain =
+      tmpl`<div>Blubb ${headerPlain}, bla ${prop("second")}, plisch ${mainPlain}</div>`;
