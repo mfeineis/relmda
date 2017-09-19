@@ -1,4 +1,4 @@
-import { Cmd, Decoder, Sub, programWithFlags, tag } from "../lib/elmish.js";
+import { Cmd, Decoder, Modifier, Sub, programWithFlags, tag } from "../lib/elmish.js";
 
 import prop from "../lib/ramda/src/prop.js";
 import { tmpl } from "./tmpl.js";
@@ -31,9 +31,12 @@ const mainView = ({ blubb, third, search }) =>
       ]);
 
 const topView = ({ blubb, first, second, third, search }) => [
-    header({ class: "--sticky", onClick: [Msg.toggleHeader, second] }, [
+    header({ class: "--sticky", onClick: [Msg.toggleHeader, second, Modifier.stopImmediatePropagation] }, [
         first,
-        button({ onClick: [Msg.someButton] }, "Boom!"),
+        button({
+            onClick: [Msg.someButton, null, Modifier.stopPropagation, Modifier.preventDefault],
+            onMouseDown: () => console.log("ignored!"),
+        }, "Boom!"),
     ]),
     //second,
     mainView({ blubb, third, search }),
